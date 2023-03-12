@@ -1,7 +1,7 @@
 package com.workshopspringbootmongodb.sbmb.service;
 
 
-import com.workshopspringbootmongodb.sbmb.dto.User;
+import com.workshopspringbootmongodb.sbmb.domain.User;
 import com.workshopspringbootmongodb.sbmb.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
