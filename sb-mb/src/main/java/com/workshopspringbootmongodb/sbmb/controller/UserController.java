@@ -1,6 +1,7 @@
 package com.workshopspringbootmongodb.sbmb.controller;
 
 import com.workshopspringbootmongodb.sbmb.domain.User;
+import com.workshopspringbootmongodb.sbmb.dto.UserDTO;
 import com.workshopspringbootmongodb.sbmb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,21 +10,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(value = "/api/users")
+@RequestMapping(value = "/users")
 public class UserController {
     @Autowired
     UserService userService;
 
     @GetMapping
-    ResponseEntity<List<User>> findAll() {
-        User maria = new User(null, "Maria", "maria@teste.com");
-        User alex = new User(null, "Alex", "alex@teste.com");
-        User joao = new User(null, "Joao", "joao@teste.com");
-
+    public ResponseEntity<List<UserDTO>> findAll() {
         List<User> list = userService.findAll();
-        return ResponseEntity.ok().body(list);
+        List<UserDTO> listDto = list.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDto);
     }
 }
 

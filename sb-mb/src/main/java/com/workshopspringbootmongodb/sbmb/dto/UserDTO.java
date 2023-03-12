@@ -1,26 +1,30 @@
 package com.workshopspringbootmongodb.sbmb.dto;
 
-public class User {
+import com.workshopspringbootmongodb.sbmb.domain.User;
+
+import java.io.Serializable;
+
+public class UserDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private String id;
     private String name;
     private String email;
 
-    public User() {
+    public UserDTO(User x) {
     }
 
-    public User(User obj) {
+    public UserDTO(UserDTO obj) {
         id = obj.getId();
         name = obj.getName();
         email = obj.getEmail();
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
