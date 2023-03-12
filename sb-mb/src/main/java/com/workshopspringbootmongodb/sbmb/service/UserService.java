@@ -2,6 +2,7 @@ package com.workshopspringbootmongodb.sbmb.service;
 
 
 import com.workshopspringbootmongodb.sbmb.domain.User;
+import com.workshopspringbootmongodb.sbmb.dto.UserDTO;
 import com.workshopspringbootmongodb.sbmb.service.exception.ObjectNotFoundException;
 import com.workshopspringbootmongodb.sbmb.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,14 @@ public class UserService {
 
     public User findById(String id) {
         Optional<User> obj = userRepository.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Not found Object"));
     }
 
+    public User save(User user){
+        return userRepository.save(user);
+    }
+
+    public User fromDto(UserDTO userDTO){
+        return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
+    }
 }

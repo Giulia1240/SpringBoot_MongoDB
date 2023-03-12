@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(value = "/users")
+@RequestMapping(value = "api/users")
 public class UserController {
     @Autowired
     UserService userService;
@@ -26,11 +26,20 @@ public class UserController {
         return ResponseEntity.ok().body(listDto);
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Optional<UserDTO>> findById(@PathVariable String id) {
+    @RequestMapping(value="/{id}", method=RequestMethod.GET)
+    public ResponseEntity<UserDTO> findById(@PathVariable String id) {
         User obj = userService.findById(id);
+        return ResponseEntity.ok().body(new UserDTO(obj));
+    }
 
-        return ResponseEntity.ok().body(Optional.of(new UserDTO(obj)));
+    @PostMapping
+    public ResponseEntity<UserDTO> save(@RequestBody UserDTO user) {
+        User obj = userService.fromDto(user);
+        obj= userService.save(obj);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+
+        return ResponseEntity.created(uri).build();
     }
 
 }

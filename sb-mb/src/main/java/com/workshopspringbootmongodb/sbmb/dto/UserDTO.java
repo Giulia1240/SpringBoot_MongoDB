@@ -1,6 +1,9 @@
 package com.workshopspringbootmongodb.sbmb.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.workshopspringbootmongodb.sbmb.domain.User;
+import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 
@@ -10,10 +13,11 @@ public class UserDTO implements Serializable {
     private String id;
     private String name;
     private String email;
-    public UserDTO(User x) {
+
+    public UserDTO() {
     }
 
-    public UserDTO(UserDTO obj) {
+    public UserDTO(User obj) {
         id = obj.getId();
         name = obj.getName();
         email = obj.getEmail();
