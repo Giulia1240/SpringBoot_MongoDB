@@ -1,5 +1,6 @@
 package com.workshopspringbootmongodb.sbmb.controller;
 
+import com.workshopspringbootmongodb.sbmb.domain.Post;
 import com.workshopspringbootmongodb.sbmb.domain.User;
 import com.workshopspringbootmongodb.sbmb.dto.UserDTO;
 import com.workshopspringbootmongodb.sbmb.service.UserService;
@@ -48,12 +49,15 @@ public class UserController {
 
         return ResponseEntity.noContent().build();
     }
-
-
     @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<Void> deleteByUSer(@PathVariable String id) {
         userService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+    @RequestMapping(value="/{id}/posts", method=RequestMethod.GET)
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User obj = userService.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
     }
 }
 
